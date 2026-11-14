@@ -12,3 +12,139 @@ body{font-family:Arial,sans-serif}
 .panel-footer{display:grid;gap:10px}.panel-footer .small-note{margin:0;text-align:center}.footer{padding:22px 0}.footer-inner{font-size:13px}
 @media(max-width:700px){.nav{flex-wrap:wrap;padding-top:12px;padding-bottom:12px}.nav-links{display:flex;order:3;width:100%;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px}.hero-grid{padding-top:30px}.hero-visual{height:230px}.products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.promo-card img{height:130px}.section-intro h2{font-size:30px}}
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}}
+
+/* Estilos específicos para imitar el diseño del panel de administración */
+        body { background-color: #fbf9f9; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: white; border-bottom: 1px solid #f8d9df; }
+        .admin-nav { display: flex; gap: 1.5rem; }
+        .admin-nav a { text-decoration: none; color: #555; font-weight: 500; font-family: 'DM Sans', sans-serif; padding: 0.5rem 1rem; border-radius: 8px; }
+        .admin-nav a.active { background: #f8d9df; color: #b3415e; font-weight: 600; }
+        
+        .admin-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        
+        /* Cuadrícula del formulario */
+        .admin-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 2rem; }
+        .admin-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .admin-card-header h2 { font-family: 'DM Sans', sans-serif; color: #4a3f3a; margin: 0; }
+        .admin-card-header p { color: #888; font-size: 0.9rem; margin: 0; }
+        
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: #555; }
+        .form-group input, .form-group select, .form-group textarea { padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #df98a9; box-shadow: 0 0 0 3px rgba(223, 152, 169, 0.2); }
+        .full-width { grid-column: 1 / -1; }
+        
+        /* Estilos de la tabla */
+        .admin-table-wrapper { overflow-x: auto; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .admin-table th { background: #fdf5f6; padding: 1rem; color: #666; font-weight: 600; font-size: 0.9rem; }
+        .admin-table td { padding: 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        
+        /* Botones de acción */
+        .btn-group { display: flex; gap: 0.5rem; }
+        .btn-ver { background-color: #9d877e; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .btn-editar { background-color: #d8aa65; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .btn-eliminar { background-color: #ce6f7f; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .btn-guardar { background-color: #df98a9; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; align-self: flex-end; }
+
+        /* Estructura de la celda de producto */
+        .product-cell { display: flex; align-items: center; gap: 1rem; }
+        .product-image { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+        .product-name { font-weight: 600; color: #4a3f3a; }
+        .product-code { font-size: 0.8rem; color: #888; }
+        
+        /* Ocultar el botón "Añadir al carrito" en el panel de admin */
+        #tablaProductos .btn-primary { display: none !important; }
+        
+        /* Estilos exactos de los botones de tu imagen */
+        #tablaProductos .btn { padding: 6px 12px; border: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: white; margin-right: 4px; }
+        #tablaProductos .btn-view { background-color: #a68a80; } /* Marrón */
+        #tablaProductos .btn-view:hover { background-color: #8c736a; }
+        #tablaProductos .btn-edit { background-color: #d6ad60; } /* Amarillo/Dorado */
+        #tablaProductos .btn-edit:hover { background-color: #c29b53; }
+        #tablaProductos .btn-delete { background-color: #c96b79; } /* Rojo/Rosado */
+        #tablaProductos .btn-delete:hover { background-color: #b05a67; }
+        
+        /* Colores de stock */
+        .stock-low { color: #c96b79; font-weight: bold; }
+        .stock-good { color: #5cb85c; font-weight: bold; }
+
+        /* Convierte la última celda (Acciones) en un contenedor flexible */
+        #tablaProductos td:last-child {
+            display: flex;
+            gap: 8px; /* Crea un espacio exacto y uniforme entre botones */
+            align-items: center; /* Los centra verticalmente */
+            flex-wrap: nowrap; /* Impide que los botones salten a la siguiente línea */
+            min-height: 60px; /* Le da espacio suficiente a la fila */
+        }
+
+        /* Corrige el tamaño y quita márgenes basura de los botones */
+        #tablaProductos .btn {
+            margin: 0 !important; /* Elimina el margen derecho anterior que los descuadraba */
+            white-space: nowrap; /* Evita que el texto del botón se rompa en dos líneas */
+            display: inline-flex;
+            justify-content: center;
+        }
+
+        /* Estilos exclusivos para el modal de productos del admin */
+.prod-modal-layout {
+    display: flex;
+    gap: 2.5rem;
+}
+.prod-modal-img {
+    flex: 1;
+    max-width: 45%;
+}
+.prod-modal-img img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+.prod-modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.prod-modal-category {
+    color: #df98a9;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+.prod-modal-title {
+    font-family: 'Playfair Display', serif;
+    color: #4a3f3a;
+    font-size: 2.2rem;
+    margin: 0 0 1.5rem 0;
+}
+.prod-modal-desc {
+    color: #777;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+.prod-modal-attr {
+    color: #777;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+.prod-modal-attr strong {
+    color: #8c736a;
+}
+.prod-modal-price {
+    font-family: 'Playfair Display', serif;
+    color: #b3415e;
+    font-size: 2.5rem;
+    margin-top: 1rem;
+}
+
+/* Hacer el modal responsive */
+@media (max-width: 768px) {
+    .prod-modal-layout {
+        flex-direction: column;
+    }
+    .prod-modal-img {
+        max-width: 100%;
+    }
+}

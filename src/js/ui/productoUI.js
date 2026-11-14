@@ -572,214 +572,32 @@ limpiarFormulario() {
     );
 }
 
-export function
-mostrarDetalle(
-    producto
-) {
-
-    const modal =
-        document.querySelector(
-            "#modal"
-        );
-
-    const modalBody =
-        document.querySelector(
-            "#modalBody"
-        );
-
+export function mostrarDetalle(producto) {
+    const modal = document.querySelector("#modal");
+    const modalBody = document.querySelector("#modalBody");
 
     modalBody.innerHTML = `
-
-        <h2>
-            ${producto.nombre}
-        </h2>
-
-        <p>
-            ${producto.descripcion}
-        </p>
-
-
-        <div
-            class="detail-grid"
-        >
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Código
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.codigo}
-                </span>
-
+        <div class="prod-modal-layout">
+            <div class="prod-modal-img">
+                <img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.src='https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80'">
             </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Categoría
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.categoria}
-                </span>
-
+            
+            <div class="prod-modal-info">
+                <span class="prod-modal-category">${producto.categoria.toUpperCase()}</span>
+                <h2 class="prod-modal-title">${producto.nombre}</h2>
+                
+                <p class="prod-modal-desc">${producto.descripcion || "Sin descripción."}</p>
+                
+                <p class="prod-modal-attr"><strong>Presentación:</strong> ${producto.presentacion || "No especificada"}</p>
+                <p class="prod-modal-attr"><strong>Sabor:</strong> ${producto.sabor || "No especificado"}</p>
+                <p class="prod-modal-attr"><strong>Ingredientes:</strong> ${producto.ingrediente || "No especificados"}</p>
+                
+                <h3 class="prod-modal-price">S/ ${producto.precio.toFixed(2)}</h3>
             </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Marca
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.marca}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Ingrediente principal
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.ingrediente}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Tamaño
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.tamano}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Sabor
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.sabor}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Precio
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    S/ ${producto.precio.toFixed(2)}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Precio con descuento
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    S/ ${producto.precioFinal.toFixed(2)}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Stock
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.stock}
-                </span>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <span
-                    class="detail-label"
-                >
-                    Disponibilidad
-                </span>
-
-                <span
-                    class="detail-value"
-                >
-                    ${producto.disponibilidad}
-                </span>
-
-            </div>
-
         </div>
-
     `;
 
-
-    modal.classList.remove(
-        "hidden"
-    );
+    modal.classList.remove("hidden");
 }
 
 export function cerrarModal() {

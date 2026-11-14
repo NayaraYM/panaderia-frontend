@@ -1,9 +1,175 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f8d9df"><title>Dulce Horno | Panadería artesanal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/src/css/styles.css"></head><body>
-<header class="site-header"><div class="wrap nav"><a class="brand" href="#inicio"><span class="brand-icon">✿</span><span>Dulce <em>Horno</em><small>panadería artesanal</small></span></a><nav class="nav-links"><a href="#inicio">Inicio</a><a href="#catalogo">Productos</a><a href="#promociones">Promociones</a></nav><button class="cart-trigger" id="abrirCarrito" type="button" aria-label="Abrir carrito">🛍 <span>Mi carrito</span> <b id="cantidadCarrito">0</b></button></div></header>
-<main><section id="inicio" class="hero"><div class="wrap hero-grid"><div class="hero-copy"><span class="eyebrow">PANADERÍA Y PASTELERÍA</span><h1>Bienvenidos a<br><i>Dulce Horno</i></h1><p>Encuentra panes, tortas y postres para disfrutar en cualquier momento.</p><a class="button primary" href="#catalogo">Ver productos</a></div><div class="hero-visual"><img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=1100&q=85" alt="Pasteles y dulces de panadería"></div></div></section>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8d9df" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icons/icon-192.png" />
+    <title>Dulce Horno | Panadería artesanal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="#inicio"
+          ><span class="brand-icon">✿</span
+          ><span
+            >Dulce <em>Horno</em><small>panadería artesanal</small></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="#inicio">Inicio</a><a href="#catalogo">Productos</a
+          ><a href="#promociones">Promociones</a>
+        </nav>
+        <button
+          class="cart-trigger"
+          id="abrirCarrito"
+          type="button"
+          aria-label="Abrir carrito"
+        >
+          🛍 <span>Mi carrito</span> <b id="cantidadCarrito">0</b>
+        </button>
+      </div>
+    </header>
+    <main>
+      <section id="inicio" class="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">PANADERÍA Y PASTELERÍA</span>
+            <h1>Bienvenidos a<br /><i>Dulce Horno</i></h1>
+            <p>
+              Encuentra panes, tortas y postres para disfrutar en cualquier
+              momento.
+            </p>
+            <a class="button primary" href="#catalogo">Ver productos</a>
+          </div>
+          <div class="hero-visual">
+            <img
+              src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=1100&q=85"
+              alt="Pasteles y dulces de panadería"
+            />
+          </div>
+        </div>
+      </section>
 
-<section id="catalogo" class="catalog wrap"><div class="section-intro"><span class="eyebrow">NUESTROS PRODUCTOS</span><h2>Catálogo de productos</h2><p>Busca tus productos favoritos y agrégalos al carrito.</p></div><div class="filters"><label class="search-field"><span>⌕</span><input id="buscar" type="search" placeholder="Buscar pan, tortas, galletas..." aria-label="Buscar productos"></label><select id="filtroCategoria" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select><select id="ordenar" aria-label="Ordenar productos"><option value="">Destacados</option><option value="precio-asc">Menor precio</option><option value="precio-desc">Mayor precio</option><option value="nombre">Nombre A–Z</option></select></div><div class="catalog-count" id="contadorProductos">Cargando delicias...</div><div id="estado" class="status" role="status">Preparando nuestras delicias... ♡</div><div id="productosGrid" class="products-grid" aria-live="polite"></div><button class="button outline hidden" id="reintentar" type="button">Volver a intentar</button></section>
-<section id="promociones" class="promos"><div class="wrap"><h2>Promociones</h2><p>Estos son algunos productos que tenemos en oferta.</p><div id="promocionesGrid" class="products-grid"></div><p id="sinPromociones" class="status hidden">Por ahora no tenemos promociones disponibles.</p></div></section></main>
-<footer class="footer"><div class="wrap footer-inner"><div class="brand footer-brand">✿ Dulce <em>Horno</em></div><span>Panadería Dulce Horno</span><a href="#inicio">Volver arriba ↑</a></div></footer>
-<div class="overlay hidden" id="overlay"></div><aside class="cart-panel" id="panelCarrito" role="dialog" aria-modal="true" aria-label="Mi carrito" aria-hidden="true"><div class="panel-head"><div><h2>Mi carrito</h2></div><button class="icon-button" id="cerrarCarrito" aria-label="Cerrar carrito">×</button></div><div class="cart-items" id="carritoLista"><p>Tu carrito está vacío.</p></div><div class="panel-footer"><div class="cart-total"><span>Total estimado</span><strong id="carritoTotal">S/ 0.00</strong></div><button class="button primary full" id="comprarCarrito" type="button">Comprar</button><button class="button outline full" id="vaciarCarrito" type="button">Vaciar carrito</button></div></aside>
-<div class="overlay hidden" id="modalOverlay"></div><div class="detail-modal hidden" id="modalDetalle" role="dialog" aria-modal="true" aria-label="Detalle del producto"><button class="icon-button modal-close" id="cerrarDetalle" aria-label="Cerrar detalle">×</button><div id="detalleContenido"></div></div><div id="toast" class="toast" role="status" aria-live="polite"></div><script type="module" src="/src/app.js"></script></body></html>
+      <section id="catalogo" class="catalog wrap">
+        <div class="section-intro">
+          <span class="eyebrow">NUESTROS PRODUCTOS</span>
+          <h2>Catálogo de productos</h2>
+          <p>Busca tus productos favoritos y agrégalos al carrito.</p>
+        </div>
+        <div class="filters">
+          <label class="search-field"
+            ><span>⌕</span
+            ><input
+              id="buscar"
+              type="search"
+              placeholder="Buscar pan, tortas, galletas..."
+              aria-label="Buscar productos" /></label
+          ><select id="filtroCategoria" aria-label="Filtrar por categoría">
+            <option value="">Todas las categorías</option></select
+          ><select id="ordenar" aria-label="Ordenar productos">
+            <option value="">Destacados</option>
+            <option value="precio-asc">Menor precio</option>
+            <option value="precio-desc">Mayor precio</option>
+            <option value="nombre">Nombre A–Z</option>
+          </select>
+        </div>
+        <div class="catalog-count" id="contadorProductos">
+          Cargando delicias...
+        </div>
+        <div id="estado" class="status" role="status">
+          Preparando nuestras delicias... ♡
+        </div>
+        <div id="productosGrid" class="products-grid" aria-live="polite"></div>
+        <button class="button outline hidden" id="reintentar" type="button">
+          Volver a intentar
+        </button>
+      </section>
+      <section id="promociones" class="promos">
+        <div class="wrap">
+          <h2>Promociones</h2>
+          <p>Estos son algunos productos que tenemos en oferta.</p>
+          <div id="promocionesGrid" class="products-grid"></div>
+          <p id="sinPromociones" class="status hidden">
+            Por ahora no tenemos promociones disponibles.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div class="brand footer-brand">✿ Dulce <em>Horno</em></div>
+        <span>Panadería Dulce Horno</span>
+        <a href="admin.html">Acceso Administrador 🔒</a> <!-- Enlace agregado aquí -->
+        <a href="#inicio">Volver arriba ↑</a>
+      </div>
+    </footer>
+    <div class="overlay hidden" id="overlay"></div>
+    <aside
+      class="cart-panel"
+      id="panelCarrito"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mi carrito"
+      aria-hidden="true"
+    >
+      <div class="panel-head">
+        <div><h2>Mi carrito</h2></div>
+        <button
+          class="icon-button"
+          id="cerrarCarrito"
+          aria-label="Cerrar carrito"
+        >
+          ×
+        </button>
+      </div>
+      <div class="cart-items" id="carritoLista">
+        <p>Tu carrito está vacío.</p>
+      </div>
+      <div class="panel-footer">
+        <div class="cart-total">
+          <span>Total estimado</span><strong id="carritoTotal">S/ 0.00</strong>
+        </div>
+        <button class="button primary full" id="comprarCarrito" type="button">
+          Comprar</button
+        ><button class="button outline full" id="vaciarCarrito" type="button">
+          Vaciar carrito
+        </button>
+      </div>
+    </aside>
+    <div class="overlay hidden" id="modalOverlay"></div>
+    <div
+      class="detail-modal hidden"
+      id="modalDetalle"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Detalle del producto"
+    >
+      <button
+        class="icon-button modal-close"
+        id="cerrarDetalle"
+        aria-label="Cerrar detalle"
+      >
+        ×
+      </button>
+      <div id="detalleContenido"></div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js");
+        });
+      }
+    </script>
+  </body>
+</html>

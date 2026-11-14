@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Dulce Horno</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icons/icon-192.png" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/css/styles.css" />
+    <style>
+        body { background-color: #fbf9f9; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: white; border-bottom: 1px solid #f8d9df; }
+        .admin-nav { display: flex; gap: 1.5rem; }
+        .admin-nav a { text-decoration: none; color: #555; font-weight: 500; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+        .admin-nav a.active { background: #f8d9df; color: #b3415e; font-weight: 600; }
+        .admin-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .admin-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 2rem; }
+        .admin-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: #555; }
+        .form-group input, .form-group select, .form-group textarea { padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; }
+        .full-width { grid-column: 1 / -1; }
+        .admin-table-wrapper { overflow-x: auto; background: white; border-radius: 12px; }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .admin-table th { background: #fdf5f6; padding: 1rem; color: #666; font-size: 0.9rem; }
+        .admin-table td { padding: 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .admin-table td:last-child { display: flex; gap: 8px; align-items: center; min-height: 60px; }
+        .admin-table .btn { padding: 6px 12px; margin: 0 !important; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; color: white; }
+        .btn-view { background-color: #a68a80; } .btn-edit { background-color: #d6ad60; } .btn-delete { background-color: #c96b79; }
+        .btn-guardar { background-color: #df98a9; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 1rem; }
+        .seccion-oculta { display: none; }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="brand">✿ Dulce <em>Horno</em> <small>Admin</small></div>
+        <nav class="admin-nav">
+            <a id="tab-productos" class="active">Productos</a>
+            <a id="tab-categorias">Categorías</a>
+            <a id="tab-clientes">Clientes</a>
+            <a id="tab-pedidos">Pedidos</a>
+            <a id="tab-empleados">Empleados</a>
+        </nav>
+        <a href="/index.html" class="button outline">Ir a la Tienda</a>
+    </header>
+
+    <main class="admin-container">
+        <!-- LOADER GLOBAL -->
+        <div id="loader" class="hidden" style="text-align:center; padding:2rem; font-weight:bold; color:#b3415e;">Sincronizando con la base de datos...</div>
+
+        <!-- SECCIÓN DE PRODUCTOS -->
+        <div id="seccion-productos">
+            <section class="admin-card">
+                <div class="admin-card-header"><h2 id="title-productos">Nuevo Producto</h2></div>
+                <form id="form-productos">
+                    <input type="hidden" id="prod-id">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Código</label><input type="text" id="prod-codigo" required></div>
+                        <div class="form-group"><label>Nombre</label><input type="text" id="prod-nombre" required></div>
+                        <div class="form-group"><label>Categoría</label><select id="prod-categoria" required></select></div>
+                        <div class="form-group"><label>Presentación</label>
+                            <select id="prod-presentacion">
+                                <option value="Unidad">Unidad</option>
+                                <option value="Porción">Porción</option>
+                                <option value="Entero">Entero</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Tamaño</label><input type="text" id="prod-tamano"></div>
+                        <div class="form-group"><label>Sabor</label><input type="text" id="prod-sabor"></div>
+                        <div class="form-group"><label>Precio (S/)</label><input type="number" id="prod-precio" step="0.01" required></div>
+                        <div class="form-group"><label>Stock</label><input type="number" id="prod-stock" required></div>
+                        <div class="form-group"><label>Marca</label><input type="text" id="prod-marca" value="Dulce Horno"></div>
+                        <div class="form-group"><label>Ingrediente principal</label><input type="text" id="prod-ingrediente"></div>
+                        <div class="form-group"><label>Disponibilidad</label>
+                            <select id="prod-disponibilidad">
+                                <option value="Disponible">Disponible</option>
+                                <option value="Agotado">Agotado</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Descuento (%)</label><input type="number" id="prod-descuento" value="0"></div>
+                        <div class="form-group full-width"><label>Imagen (URL)</label><input type="url" id="prod-imagen"></div>
+                        <div class="form-group full-width"><label>Descripción</label><textarea id="prod-descripcion" rows="2"></textarea></div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Producto</button>
+                </form>
+            </section>
+            
+            <section class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Inventario</h2>
+                    <div class="stats" style="font-size:0.9rem;">
+                        Total: <b id="totalProductos">0</b> | Stock: <b id="stockTotal">0</b> | Valor: <b id="valorInventario">S/ 0.00</b>
+                    </div>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr></thead>
+                        <tbody id="tabla-productos"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN DE CATEGORÍAS -->
+        <div id="seccion-categorias" class="seccion-oculta">
+            <section class="admin-card">
+                <div class="admin-card-header"><h2 id="title-categorias">Nueva Categoría</h2></div>
+                <form id="form-categorias">
+                    <input type="hidden" id="cat-id">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Nombre</label><input type="text" id="cat-nombre" required></div>
+                        <div class="form-group"><label>Estado</label>
+                            <select id="cat-activa"><option value="true">Activa</option><option value="false">Inactiva</option></select>
+                        </div>
+                        <div class="form-group full-width"><label>Descripción</label><textarea id="cat-descripcion" rows="2"></textarea></div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Categoría</button>
+                </form>
+            </section>
+            <section class="admin-card">
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Estado</th><th>Acciones</th></tr></thead>
+                        <tbody id="tabla-categorias"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN DE CLIENTES -->
+        <div id="seccion-clientes" class="seccion-oculta">
+            <section class="admin-card">
+                <div class="admin-card-header"><h2 id="title-clientes">Nuevo Cliente</h2></div>
+                <form id="form-clientes">
+                    <input type="hidden" id="cli-id">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Nombre</label><input type="text" id="cli-nombre" required></div>
+                        <div class="form-group"><label>Apellido</label><input type="text" id="cli-apellido" required></div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" id="cli-telefono"></div>
+                        <div class="form-group"><label>Correo</label><input type="email" id="cli-correo"></div>
+                        <div class="form-group full-width"><label>Dirección</label><input type="text" id="cli-direccion"></div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Cliente</button>
+                </form>
+            </section>
+            <section class="admin-card">
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Cliente</th><th>Contacto</th><th>Dirección</th><th>Acciones</th></tr></thead>
+                        <tbody id="tabla-clientes"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN DE PEDIDOS -->
+        <div id="seccion-pedidos" class="seccion-oculta">
+            <section class="admin-card">
+                <div class="admin-card-header"><h2 id="title-pedidos">Nuevo Pedido</h2></div>
+                <form id="form-pedidos">
+                    <input type="hidden" id="ped-id">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Cliente</label><select id="ped-clienteId" required></select></div>
+                        <div class="form-group"><label>Total (S/)</label><input type="number" id="ped-total" step="0.01" required></div>
+                        <div class="form-group"><label>Estado</label>
+                            <select id="ped-estado">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="En Proceso">En Proceso</option>
+                                <option value="Entregado">Entregado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Pedido</button>
+                </form>
+            </section>
+            <section class="admin-card">
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead><tr><th>ID</th><th>ID Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Acciones</th></tr></thead>
+                        <tbody id="tabla-pedidos"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN DE EMPLEADOS (FIREBASE FIRESTORE) -->
+        <div id="seccion-empleados" class="seccion-oculta">
+            <section class="admin-card">
+                <div class="admin-card-header"><h2 id="title-empleados">Nuevo Empleado (Firebase)</h2></div>
+                <form id="form-empleados">
+                    <input type="hidden" id="emp-id">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Código</label><input type="text" id="emp-codigo" required placeholder="EMP-01"></div>
+                        <div class="form-group"><label>Nombre</label><input type="text" id="emp-nombre" required></div>
+                        <div class="form-group"><label>Apellido</label><input type="text" id="emp-apellido" required></div>
+                        <div class="form-group"><label>Cargo</label>
+                            <select id="emp-cargo">
+                                <option value="Panadero Maestro">Panadero Maestro</option>
+                                <option value="Pastelero">Pastelero</option>
+                                <option value="Cajero">Cajero</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" id="emp-telefono"></div>
+                        <div class="form-group"><label>Correo Electrónico</label><input type="email" id="emp-correo"></div>
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Empleado</button>
+                </form>
+            </section>
+            <section class="admin-card">
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Empleado</th>
+                                <th>Cargo</th>
+                                <th>Contacto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-empleados"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        
+        <!-- MODAL Y TOAST -->
+        <div id="modal" class="overlay hidden">
+            <div class="detail-modal" style="background: white; padding: 2rem; border-radius: 16px; max-width: 800px; width: 90%; margin: 5% auto; position: relative;">
+                <button id="cerrarDetalle" onclick="document.getElementById('modal').classList.add('hidden')" style="position: absolute; right: 1rem; top: 1rem; border:none; background:#fdf5f6; width:40px; height:40px; border-radius:50%; font-size:1.2rem; cursor:pointer;">×</button>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+        <div id="toast" class="toast"></div>
+    </main>
+
+    <script type="module" src="/src/admin.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js");
+        });
+      }
+    </script>
+</body>
+</html>

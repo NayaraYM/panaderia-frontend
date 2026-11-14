@@ -1,19 +1,23 @@
-import { httpRequest } from "../api/httpClient.js";
+import { get, post, put, remove } from '../api/httpClient.js';
 
-const ENDPOINT = "/categorias";
-
+const ENDPOINT = '/categorias';
 
 export async function listarCategorias() {
-
-    return await httpRequest(ENDPOINT);
-
+    return await get(ENDPOINT);
 }
 
-
 export async function obtenerCategoria(id) {
+    return await get(`${ENDPOINT}/${id}`);
+}
 
-    return await httpRequest(
-        `${ENDPOINT}/${id}`
-    );
+export async function crearCategoria(categoria) {
+    return await post(ENDPOINT, categoria);
+}
 
+export async function actualizarCategoria(id, categoria) {
+    return await put(`${ENDPOINT}/${id}`, categoria);
+}
+
+export async function eliminarCategoria(id) {
+    return await remove(`${ENDPOINT}/${id}`);
 }
