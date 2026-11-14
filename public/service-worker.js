@@ -1,4 +1,4 @@
-const CACHE = "dulce-horno-shell-v1";
+const CACHE = "dulce-horno-shell-v2";
 const SHELL = [
   "/",
   "/index.html",
